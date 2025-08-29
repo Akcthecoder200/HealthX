@@ -1,6 +1,8 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState, useCallback } from "react";
+import PropTypes from 'prop-types';
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import { doctors as sampleDoctors } from '../assets/assets_frontend/assets'
 
 export const AppContext = createContext();
 
@@ -13,25 +15,28 @@ const AppContextProvider = (props) => {
   const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
   const [userData, setUserData] = useState(false)
 
-  const getDoctorsData = async () => {
+  const getDoctorsData = useCallback(async () => {
 
     try {
 
       const { data } = await axios.get(backendUrl + '/api/doctor/list')
-      if (data.success) {
+      if (data.success && data.doctors.length > 0) {
         setDoctors(data.doctors)
       } else {
-        toast.error(data.message)
+        // Use sample doctors as fallback if no doctors in database
+        setDoctors(sampleDoctors)
       }
 
     } catch (error) {
       console.log(error)
-      toast.error(error.message)
+      // Use sample doctors as fallback on error
+      setDoctors(sampleDoctors)
+      toast.error('Using sample data - ' + error.message)
     }
 
-  }
+  }, [backendUrl])
 
-  const loadUserProfileData = async () => {
+  const loadUserProfileData = useCallback(async () => {
 
     try {
 
@@ -48,7 +53,7 @@ const AppContextProvider = (props) => {
       toast.error(error.message)
     }
 
-  }
+  }, [backendUrl, token])
 
   const value = {
     doctors, getDoctorsData,
@@ -61,7 +66,7 @@ const AppContextProvider = (props) => {
 
   useEffect(() => {
     getDoctorsData()
-  }, [])
+  }, [getDoctorsData])
 
   useEffect(() => {
     if (token) {
@@ -69,7 +74,7 @@ const AppContextProvider = (props) => {
     } else {
       setUserData(false)
     }
-  }, [token])
+  }, [token, loadUserProfileData])
 
   return (
     <AppContext.Provider value={value}>
@@ -78,5 +83,8 @@ const AppContextProvider = (props) => {
   )
 
 }
+AppContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default AppContextProvider

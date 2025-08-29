@@ -17,10 +17,16 @@ const Login = () => {
     try {
 
       if (state === 'Admin') {
+        console.log('Attempting admin login with:', { email, password })
+        console.log('Backend URL:', backendUrl)
+        
         const { data } = await axios.post(backendUrl + '/api/admin/login', { email, password })
+        console.log('Login response:', data)
+        
         if (data.success) {
           localStorage.setItem('aToken', data.token)
           setAToken(data.token)
+          toast.success('Login successful!')
         } else {
           toast.error(data.message)
         }
@@ -29,7 +35,8 @@ const Login = () => {
       }
 
     } catch (error) {
-
+      console.error('Login error:', error)
+      toast.error(error.response?.data?.message || error.message || 'Login failed')
     }
   }
 
