@@ -11,7 +11,7 @@ const Navbar = () => {
 
   const logout = () => {
     setToken(false)
-    localStorage.removeItem('token')
+    localStorage.removeItem('userToken')
   }
 
   return (
@@ -43,8 +43,8 @@ const Navbar = () => {
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
           <div className='absolute top-8 left-0 pt-2 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
             <div className='min-w-40 bg-white border rounded shadow-lg flex flex-col'>
-              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer border-b'>Admin Portal</a>
-              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer'>Doctor Portal</a>
+              <a href="/admin" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer border-b'>Admin Portal</a>
+              <a href="/admin" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer'>Doctor Portal</a>
             </div>
           </div>
         </div>
@@ -66,6 +66,13 @@ const Navbar = () => {
             </div>
             : <button onClick={() => navigate('/login')} className='bg-primary text-white px-8 py-3 rounded-full font-light hidden md:block'>Create Account</button>
         }
+        
+        {/* Mobile Login Button */}
+        {!token && (
+          <button onClick={() => navigate('/login')} className='bg-primary text-white px-4 py-2 rounded-full font-light md:hidden text-xs'>
+            Login
+          </button>
+        )}
 
         <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
 
@@ -81,10 +88,41 @@ const Navbar = () => {
             <NavLink onClick={() => setShowMenu(false)} to='/doctors'><p className='px-3 py-3 rounded inline-block'>ALL DOCTORS</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/about'><p className='px-3 py-3 rounded inline-block'>ABOUT</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/contact'><p className='px-3 py-3 rounded inline-block'>CONTACT</p></NavLink>
+            
+            {/* Mobile Login Button */}
+            {
+              !token && (
+                <button 
+                  onClick={() => {
+                    setShowMenu(false)
+                    navigate('/login')
+                  }} 
+                  className='bg-primary text-white px-8 py-3 rounded-full font-light w-full mt-4'
+                >
+                  Create Account
+                </button>
+              )
+            }
+            
+            {/* Mobile User Menu */}
+            {
+              token && userData && (
+                <div className='w-full border-t pt-4'>
+                  <div className='flex items-center justify-center gap-2 mb-4'>
+                    <img className='w-8 rounded-full' src={userData.image} alt="" />
+                    <span className='text-sm'>{userData.name}</span>
+                  </div>
+                  <button onClick={() => { setShowMenu(false); navigate('/my-profile') }} className='block w-full px-3 py-2 rounded text-center hover:bg-gray-100'>My Profile</button>
+                  <button onClick={() => { setShowMenu(false); navigate('/my-appointments') }} className='block w-full px-3 py-2 rounded text-center hover:bg-gray-100'>My Appointments</button>
+                  <button onClick={() => { setShowMenu(false); logout() }} className='block w-full px-3 py-2 rounded text-center hover:bg-gray-100'>Logout</button>
+                </div>
+              )
+            }
+            
             <div className='w-full border-t pt-4'>
               <p className='text-center text-gray-500 mb-2'>PORTALS</p>
-              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Admin Portal</a>
-              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Doctor Portal</a>
+              <a href="/admin" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Admin Portal</a>
+              <a href="/admin" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Doctor Portal</a>
             </div>
           </ul>
         </div>

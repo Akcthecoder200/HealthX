@@ -12,8 +12,17 @@ const AppContextProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL
 
   const [doctors, setDoctors] = useState([])
-  const [token, setToken] = useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
+  const [token, setToken] = useState(localStorage.getItem('userToken') ? localStorage.getItem('userToken') : false)
   const [userData, setUserData] = useState(false)
+
+  // Clear admin/doctor tokens when on frontend to avoid conflicts
+  useEffect(() => {
+    // Only clear if we're in the frontend (not admin panel)
+    if (!window.location.pathname.includes('/admin')) {
+      localStorage.removeItem('aToken')
+      localStorage.removeItem('dToken')
+    }
+  }, [])
 
   const getDoctorsData = useCallback(async () => {
 
@@ -46,11 +55,21 @@ const AppContextProvider = (props) => {
         setUserData(data.userData)
       } else {
         toast.error(data.message)
+        // Clear invalid token
+        setToken(false)
+        localStorage.removeItem('userToken')
       }
 
     } catch (error) {
       console.log(error)
-      toast.error(error.message)
+      // Clear invalid token on JWT errors
+      if (error.response?.status === 401 || error.message.includes('token')) {
+        setToken(false)
+        localStorage.removeItem('userToken')
+        toast.error('Session expired. Please login again.')
+      } else {
+        toast.error(error.message)
+      }
     }
 
   }, [backendUrl, token])

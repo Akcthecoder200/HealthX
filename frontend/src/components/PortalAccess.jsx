@@ -24,9 +24,7 @@ const PortalAccess = () => {
           </div>
           <p className='text-gray-600 mb-6'>Manage doctors, appointments, and system settings. Complete administrative control.</p>
           <a 
-            href="http://localhost:5174" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href="/admin" 
             className='w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors duration-300 text-center block'
           >
             Access Admin Portal
@@ -47,9 +45,7 @@ const PortalAccess = () => {
           </div>
           <p className='text-gray-600 mb-6'>Manage your appointments, view patient information, and update your availability.</p>
           <a 
-            href="http://localhost:5174" 
-            target="_blank" 
-            rel="noopener noreferrer"
+            href="/admin" 
             className='w-full bg-green-600 text-white py-3 px-6 rounded-lg hover:bg-green-700 transition-colors duration-300 text-center block'
           >
             Access Doctor Portal
