@@ -60,7 +60,8 @@ app.get('/health', (req, res) => {
 
 app.listen(port, () => {
   console.log(`🚀 HealthX Server started on port ${port}`)
-  console.log(`📱 Frontend: ${process.env.NODE_ENV === 'production' ? 'https://your-app.onrender.com' : `http://localhost:${port}`}`)
-  console.log(`🔧 Admin Panel: ${process.env.NODE_ENV === 'production' ? 'https://your-app.onrender.com/admin' : `http://localhost:${port}/admin`}`)
-  console.log(`🔗 API: ${process.env.NODE_ENV === 'production' ? 'https://your-app.onrender.com/api' : `http://localhost:${port}/api`}`)
+  console.log(`📱 Frontend: ${process.env.NODE_ENV === 'production' ? 'https://healthx-2675.onrender.com' : `http://localhost:${port}`}`)
+  console.log(`🔧 Admin Panel: ${process.env.NODE_ENV === 'production' ? 'https://healthx-2675.onrender.com/admin' : `http://localhost:${port}/admin`}`)
+  console.log(`🔗 API: ${process.env.NODE_ENV === 'production' ? 'https://healthx-2675.onrender.com/api' : `http://localhost:${port}/api`}`)
+  console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`)
 })

@@ -11,7 +11,7 @@ const DoctorContextProvider = (props) => {
   const [dashData, setDashData] = useState(false)
   const [profileData, setProfileData] = useState(false)
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL
+  const backendUrl = import.meta.env.VITE_BACKEND_URL || ''
 
   const getAppointments = async () => {
 
