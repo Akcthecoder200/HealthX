@@ -37,6 +37,17 @@ const Navbar = () => {
           <li className='py-1'>CONTACT</li>
           <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
         </NavLink>
+        
+        <div className='relative group'>
+          <li className='py-1 cursor-pointer'>PORTALS</li>
+          <hr className='border-none outline-none h-0.5 bg-primary w-3/5 m-auto hidden' />
+          <div className='absolute top-8 left-0 pt-2 text-base font-medium text-gray-600 z-20 hidden group-hover:block'>
+            <div className='min-w-40 bg-white border rounded shadow-lg flex flex-col'>
+              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer border-b'>Admin Portal</a>
+              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='px-4 py-2 hover:bg-gray-100 hover:text-primary cursor-pointer'>Doctor Portal</a>
+            </div>
+          </div>
+        </div>
       </ul>
 
       <div className='flex items-center gap-4'>
@@ -70,6 +81,11 @@ const Navbar = () => {
             <NavLink onClick={() => setShowMenu(false)} to='/doctors'><p className='px-3 py-3 rounded inline-block'>ALL DOCTORS</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/about'><p className='px-3 py-3 rounded inline-block'>ABOUT</p></NavLink>
             <NavLink onClick={() => setShowMenu(false)} to='/contact'><p className='px-3 py-3 rounded inline-block'>CONTACT</p></NavLink>
+            <div className='w-full border-t pt-4'>
+              <p className='text-center text-gray-500 mb-2'>PORTALS</p>
+              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Admin Portal</a>
+              <a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='block px-3 py-2 rounded text-center hover:bg-gray-100'>Doctor Portal</a>
+            </div>
           </ul>
         </div>
 

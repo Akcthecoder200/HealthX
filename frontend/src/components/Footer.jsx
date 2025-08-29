@@ -25,8 +25,10 @@ const Footer = () => {
 
         {/* ---------- Right Section ---------- */}
         <div>
-          <p className='text-xl font-medium mb-5'>GET IN TOUCH</p>
+          <p className='text-xl font-medium mb-5'>PORTALS</p>
           <ul className='flex flex-col gap-2 text-gray-600'>
+            <li><a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='hover:text-primary cursor-pointer'>Admin Portal</a></li>
+            <li><a href="http://localhost:5174" target="_blank" rel="noopener noreferrer" className='hover:text-primary cursor-pointer'>Doctor Portal</a></li>
             <li>+1-212-456-7890</li>
             <li>sadikahmetaydin@gmail.com</li>
           </ul>
