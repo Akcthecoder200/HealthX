@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { assets } from '../assets/assets_admin/assets'
+import  { useContext, useState } from 'react'
+
 import { AdminContext } from '../context/AdminContext'
 import { DoctorContext } from '../context/DoctorContext'
 import { toast } from 'react-toastify'

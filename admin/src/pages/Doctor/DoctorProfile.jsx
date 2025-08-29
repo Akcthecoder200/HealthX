@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import  { useContext, useEffect, useState } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
-import { assets } from '../../assets/assets_admin/assets'
 import { toast } from 'react-toastify'
 
 const DoctorProfile = () => {
 
-  const { dToken, profileData, setProfileData, getProfileData } = useContext(DoctorContext)
+  const { dToken, profileData,  getProfileData } = useContext(DoctorContext)
   const [isEdit, setIsEdit] = useState(false)
 
   useEffect(() => {
